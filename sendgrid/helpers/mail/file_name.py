@@ -10,7 +10,13 @@ class FileName(object):
         self._file_name = None
 
         if file_name is not None:
+            file_name = self._encode_file_name(file_name)
             self.file_name = file_name
+
+    @staticmethod
+    def _encode_file_name(file_name:str) -> str:
+        encoded_filename = base64.b64encode(file_name.encode('utf-8')).decode('utf-8')
+        return f'=?utf-8?B?{encoded_filename}?='
 
     @property
     def file_name(self):
